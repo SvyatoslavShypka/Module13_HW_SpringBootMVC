@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,27 +15,27 @@ public class NoteController {
 
     NoteService noteService = new NoteService();
 
-    @GetMapping("/signup")
+    @GetMapping("/note/edit")
     public String showSignUpForm(Note note) {
         return "add-note";
     }
 
-    @PostMapping("/addnote")
+    @PostMapping("/note/edit")
     public String addUser(Note note, BindingResult result) {
         if (result.hasErrors()) {
             return "add-note";
         }
         noteService.add(note);
-        return "redirect:/index";
+        return "redirect:/note/list";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/note/list")
     public String showAllNotes(Model model) {
         model.addAttribute("notes", noteService.listAll());
         return "index";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/note/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Note note = noteService.getById(id);
 
@@ -42,7 +43,7 @@ public class NoteController {
         return "update-note";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/note/edit/{id}")
     public String updateNote(@PathVariable("id") long id, Note note,
                              BindingResult result) {
         if (result.hasErrors()) {
@@ -50,12 +51,12 @@ public class NoteController {
             return "update-note";
         }
         noteService.update(note);
-        return "redirect:/index";
+        return "redirect:/note/list";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/note/delete/{id}")
     public String deleteNote(@PathVariable("id") long id) {
         noteService.deleteById(id);
-        return "redirect:/index";
+        return "redirect:/note/list";
     }
 }

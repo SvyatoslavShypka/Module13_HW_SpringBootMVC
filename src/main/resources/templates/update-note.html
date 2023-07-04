@@ -6,7 +6,7 @@
 </head>
 <body>
 <form action="#"
-      th:action="@{/update/{id}(id=${note.id})}"
+      th:action="@{/note/edit/{id}(id=${note.id})}"
       th:object="${note}"
       method="post">
   <label for="title">Title</label>
