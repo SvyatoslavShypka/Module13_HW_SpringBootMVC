@@ -20,7 +20,7 @@ public class NoteController {
     }
 
     @PostMapping("/addnote")
-    public String addUser(Note note, BindingResult result, Model model) {
+    public String addUser(Note note, BindingResult result) {
         if (result.hasErrors()) {
             return "add-note";
         }
@@ -44,7 +44,7 @@ public class NoteController {
 
     @PostMapping("/update/{id}")
     public String updateNote(@PathVariable("id") long id, Note note,
-                             BindingResult result, Model model) {
+                             BindingResult result) {
         if (result.hasErrors()) {
             note.setId(id);
             return "update-note";
@@ -54,7 +54,7 @@ public class NoteController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNote(@PathVariable("id") long id, Model model) {
+    public String deleteNote(@PathVariable("id") long id) {
         noteService.deleteById(id);
         return "redirect:/index";
     }
