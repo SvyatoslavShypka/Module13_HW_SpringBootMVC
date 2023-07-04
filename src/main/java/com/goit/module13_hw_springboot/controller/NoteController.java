@@ -2,26 +2,25 @@ package com.goit.module13_hw_springboot.controller;
 
 import com.goit.module13_hw_springboot.entity.Note;
 import com.goit.module13_hw_springboot.service.NoteService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/note")
 @Controller
 public class NoteController {
 
     NoteService noteService = new NoteService();
 
-    @GetMapping("/note/edit")
-    public String showSignUpForm(Note note) {
+    @GetMapping("/edit")
+    public String showAddNoteForm(Note note) {
         return "add-note";
     }
 
-    @PostMapping("/note/edit")
-    public String addUser(Note note, BindingResult result) {
+    @PostMapping("/edit")
+    public String addNote(Note note, BindingResult result) {
         if (result.hasErrors()) {
             return "add-note";
         }
@@ -29,13 +28,13 @@ public class NoteController {
         return "redirect:/note/list";
     }
 
-    @GetMapping("/note/list")
+    @GetMapping("/list")
     public String showAllNotes(Model model) {
         model.addAttribute("notes", noteService.listAll());
         return "index";
     }
 
-    @GetMapping("/note/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Note note = noteService.getById(id);
 
@@ -43,7 +42,7 @@ public class NoteController {
         return "update-note";
     }
 
-    @PostMapping("/note/edit/{id}")
+    @PostMapping("/update/{id}")
     public String updateNote(@PathVariable("id") long id, Note note,
                              BindingResult result) {
         if (result.hasErrors()) {
@@ -54,7 +53,7 @@ public class NoteController {
         return "redirect:/note/list";
     }
 
-    @GetMapping("/note/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteNote(@PathVariable("id") long id) {
         noteService.deleteById(id);
         return "redirect:/note/list";
