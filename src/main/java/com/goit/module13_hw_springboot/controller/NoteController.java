@@ -20,7 +20,7 @@ public class NoteController {
     }
 
     @PostMapping("/addnote")
-    public String addUser(@Valid Note note, BindingResult result, Model model) {
+    public String addUser(Note note, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-note";
         }
@@ -37,14 +37,13 @@ public class NoteController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Note note = noteService.getById(id);
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid note Id:" + id));
 
         model.addAttribute("note", note);
         return "update-note";
     }
 
     @PostMapping("/update/{id}")
-    public String updateNote(@PathVariable("id") long id, @Valid Note note,
+    public String updateNote(@PathVariable("id") long id, Note note,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             note.setId(id);
@@ -56,8 +55,6 @@ public class NoteController {
 
     @GetMapping("/delete/{id}")
     public String deleteNote(@PathVariable("id") long id, Model model) {
-//        Note note = noteService.getById(id);
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         noteService.deleteById(id);
         return "redirect:/index";
     }
