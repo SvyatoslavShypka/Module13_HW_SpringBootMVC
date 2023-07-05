@@ -2,10 +2,12 @@ package com.goit.module13_hw_springboot.service;
 
 import com.goit.module13_hw_springboot.entity.Note;
 import com.goit.module13_hw_springboot.exception.RecordNotFoundException;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Data
 @Service
 public class NoteService {
 
@@ -50,38 +52,4 @@ public class NoteService {
         return result;
     }
 
-    public Map<Long, Note> getMap() {
-        return this.map;
-    }
-
-    public void setMap(Map<Long, Note> map) {
-        this.map = map;
-    }
-
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof NoteService)) return false;
-        final NoteService other = (NoteService) o;
-        if (!other.canEqual((Object) this)) return false;
-        final Object this$map = this.getMap();
-        final Object other$map = other.getMap();
-        if (this$map == null ? other$map != null : !this$map.equals(other$map)) return false;
-        return true;
-    }
-
-    protected boolean canEqual(final Object other) {
-        return other instanceof NoteService;
-    }
-
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $map = this.getMap();
-        result = result * PRIME + ($map == null ? 43 : $map.hashCode());
-        return result;
-    }
-
-    public String toString() {
-        return "NoteService(map=" + this.getMap() + ")";
-    }
 }
