@@ -2,17 +2,18 @@ package com.goit.module13_hw_springboot.controller;
 
 import com.goit.module13_hw_springboot.entity.Note;
 import com.goit.module13_hw_springboot.service.NoteService;
-import jakarta.websocket.server.PathParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/note")
+@RequiredArgsConstructor
 @Controller
 public class NoteController {
 
-    NoteService noteService = new NoteService();
+    private final NoteService noteService;
 
     @GetMapping("/edit")
     public String showAddNoteForm(Note note) {
